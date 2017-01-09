@@ -11,62 +11,116 @@ public class AsIntStream implements IntStream {
     }
 
     public static IntStream of(int... values) {
-        return null;
+        AsIntStream strm = new AsIntStream();
+        for (int i: values){
+            strm.arrLst.add(i);
+        }
+        return strm;
     }
 
     @Override
     public Double average() {
+        if (arrLst.isEmpty()){
+            throw new IllegalArgumentException("Is empty.");
+        }
         return (double) sum() / count();
     }
 
     @Override
     public Integer max() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(arrLst.isEmpty()){
+            throw new IllegalArgumentException("Is empty.");
+        }
+        int max = 0;
+        for (int i: arrLst ){
+            if (i > max){
+                max = i;
+            }
+        }
+        return max;
     }
 
     @Override
     public Integer min() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(arrLst.isEmpty()){
+            throw new IllegalArgumentException("Is empty.");
+        }
+        int min = 0;
+        for (int i: arrLst ){
+            if (i < min){
+                min = i;
+            }
+        }
+        return min;
     }
 
     @Override
     public long count() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return arrLst.size();
     }
 
     @Override
     public Integer sum() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(arrLst.isEmpty()){
+            throw new IllegalArgumentException("Is empty.");
+        }
+        int sum = 0;
+        for (int i: arrLst){
+            sum += i;
+        }
+        return sum;
     }
 
     @Override
     public IntStream filter(IntPredicate predicate) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       AsIntStream strmfiltr = new AsIntStream();
+        for (int i: arrLst) {
+            if (predicate.test(i)) {
+                strmfiltr.arrLst.add(i);
+            }
+        }
+        return strmfiltr;
     }
 
     @Override
     public void forEach(IntConsumer action) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i: arrLst){
+            action.accept(i);
+        }
     }
 
     @Override
     public IntStream map(IntUnaryOperator mapper) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       AsIntStream strmmap = new AsIntStream();
+        for (int i: arrLst){
+            mapper.apply(i);
+        }
+        return strmmap;
     }
 
     @Override
     public IntStream flatMap(IntToIntStreamFunction func) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<IntStream> arrlst = new ArrayList<>();
+        for (int i: arrLst){
+            arrlst.add(func.applyAsIntStream(i));
+        }
+        return (IntStream) arrlst;
     }
 
     @Override
     public int reduce(int identity, IntBinaryOperator op) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (int i: arrLst){
+            identity = op.apply(i, identity);
+        }
+        return identity;
     }
 
     @Override
     public int[] toArray() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int[] strmarr = new int[arrLst.size()] ;
+        for(int i = 0; i < arrLst.size(); i++){
+            strmarr[i] = arrLst.get(i);
+        }
+        return strmarr;
     }
-
 }
