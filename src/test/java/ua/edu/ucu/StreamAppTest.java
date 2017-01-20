@@ -28,6 +28,47 @@ public class StreamAppTest {
     }
 
     @Test
+    public void testAverage() {
+        System.out.println("Average");
+        double expResult = 1;
+        double result = intStream.average();
+        assertEquals(expResult, (Object) result);
+    }
+
+    @Test
+    public void tesMax() {
+        System.out.println("Maximum");
+        double expResult = 3;
+        double result = intStream.max();
+        assertEquals(expResult, (Object) result);
+    }
+
+    @Test
+    public void tesMin() {
+        System.out.println("Minimum");
+        double expResult = -1;
+        double result = intStream.min();
+        assertEquals(expResult, (Object) result);
+    }
+
+    @Test
+    public void tesSum() {
+        System.out.println("Sum");
+        double expResult = 5;
+        double result = intStream.sum();
+        assertEquals(expResult, (Object) result);
+    }
+
+    @Test
+    public void testCount() {
+        System.out.println("Count");
+        double expResult = 5;
+        double result = intStream.count();
+        assertEquals(expResult, (Object) result);
+    }
+
+
+    @Test
     public void testStreamToArray() {
         System.out.println("streamToArray");
         int[] expResult = {-1, 0, 1, 2, 3};
